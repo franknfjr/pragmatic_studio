@@ -5,9 +5,17 @@ defmodule Servy.Handler do
     |> rewrite_path
     |> log
     |> route
+    |> track
     |> format_response
   end
 
+  def track(%{status: 404, path: path} = conv) do
+    IO.puts "Warning: #{path} not exist!"
+    conv
+  end
+
+  def track(conv), do: conv
+  
   def rewrite_path(%{path: "/wildlife"} = conv) do
     %{conv | path: "/wildthings"}
   end
