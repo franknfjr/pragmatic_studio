@@ -2,6 +2,9 @@ defmodule Servy.Parse do
   @moduledoc """
   Parse a request and return a map 
   """
+
+  alias Servy.Conv, as: Conv
+
   def parse(request) do
     [method, path, _] =
       request
@@ -9,6 +12,6 @@ defmodule Servy.Parse do
       |> List.first()
       |> String.split(" ")
 
-    %{method: method, path: path, resp_body: "", status: nil}
+    %Conv{method: method, path: path}
   end
 end

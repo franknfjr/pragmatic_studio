@@ -2,11 +2,12 @@ defmodule Servy.Plugins do
   @moduledoc """
   Plugins from Handler a request/response
   """
+  alias Servy.Conv
 
   @doc """
   Logs 404 request
   """
-  def track(%{status: 404, path: path} = conv) do
+  def track(%Conv{status: 404, path: path} = conv) do
     IO.puts("Warning: #{path} not exist!")
     conv
   end
@@ -14,12 +15,12 @@ defmodule Servy.Plugins do
   @doc """
   Log not 404
   """
-  def track(conv), do: conv
+  def track(%Conv{} = conv), do: conv
 
   @doc """
   Update a path
   """
-  def rewrite_path(%{path: "/wildlife"} = conv) do
+  def rewrite_path(%Conv{path: "/wildlife"} = conv) do
     %{conv | path: "/wildthings"}
   end
 
