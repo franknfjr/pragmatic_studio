@@ -3,6 +3,8 @@ defmodule Servy.Handler do
   Handles HTTP requests.
   """
 
+  @page_path Path.expand("../pages/", __DIR__)
+
   @doc """
   Transforms the request into a response.
   """
@@ -81,7 +83,7 @@ defmodule Servy.Handler do
   Route for read a file about
   """
   def route(%{method: "GET", path: "/about"} = conv) do
-    Path.expand("../pages/", __DIR__)
+    @page_path
     |> Path.join("about.html")
     |> File.read()
     |> handle_file(conv)
@@ -152,9 +154,6 @@ defmodule Servy.Handler do
     """
   end
 
-  @doc """
-  Return string of status
-  """
   defp status_reason(code) do
     %{
       200 => "OK",
