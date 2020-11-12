@@ -44,7 +44,8 @@ defmodule Servy.Handler do
   Post data
   """
   def route(%Conv{method: "POST", path: "/bears"} = conv) do
-    %Conv{conv | status: 201, resp_body: "Create a bear!"}
+    params = %{"name" => "Dogguito", "type" => "Caramelo"}
+    %{conv | status: 201, resp_body: "Created a #{params["type"]} dog named #{params["name"]}"}
   end
 
   @doc """
@@ -93,7 +94,7 @@ defmodule Servy.Handler do
   end
 
   # def route(%{method: "GET", path: "/about"} = conv) do
-  #   file = 
+  #   file =
   #   Path.expand("../pages/", __DIR__)
   #   |> Path.join("about.html")
 
@@ -195,7 +196,7 @@ Accept: */*
 Content-Type: application/x-www-form-urlencoded
 Content-Length: 21
 
-name=Baloo&type=Brown
+name=Dogguito&type=Caramelo
 """
 
 response = Servy.Handler.handle(request)
